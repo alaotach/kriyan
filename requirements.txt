@@ -1,0 +1,7 @@
+nextcord
+motor
+pyyaml
+openai==0.28
+requests
+six
+pyperclip
