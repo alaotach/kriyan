@@ -5,3 +5,10 @@ openai==0.28
 requests
 six
 pyperclip
+langdetect
+better_profanity
+nextcord
+motor
+pyyaml
+setuptools
+g4f[all]
