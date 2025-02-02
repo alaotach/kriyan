@@ -369,14 +369,19 @@ async def on_message(message):
                 collected_chunks = []
                 collected_messages = []
 
-                response = openai.chat.completions.create(
-                    model=gptmodel,
-                    messages=[
-                        {"role": "system", "name": "instructions", "content": instructions},
-                        *conversation_history
-                    ],
-                    stream=False,
-                    temperature=0.3
+                loop = asyncio.get_event_loop()
+                    
+                    # Run API call in executor to avoid blocking
+                response = await loop.run_in_executor(None,
+                        lambda: openai.chat.completions.create(
+                            model=gptmodel,
+                            messages=[
+                                {"role": "system", "content": instructions},
+                                *conversation_history
+                            ],
+                            stream=False,
+                            temperature=0.3
+                        )
                 )
                 chunk = response.choices[0].message.content
                 print(chunk)
@@ -823,4 +828,4 @@ import time
 
 
     
-client.run("MTI0MzQ5MjYwMjEwODU3OTg4NA.GUKBGS.fXSJ-EKuXsrfT4DsDL_l1AndGRu80TOBxaITfo")
+client.run("")
